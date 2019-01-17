@@ -12,9 +12,9 @@
         </div>
         <div class="login-form">
             <div class="login-form__left">
-                <div class="left-logo">
-                    <img src="~@/assets/images/logo.png" alt="">
-                </div>
+                <!--<div class="left-logo">-->
+                    <!--<img src="~@/assets/images/logo.png" alt="">-->
+                <!--</div>-->
                 <div class="left-title">
                     <img src="~@/assets/images/sys.png" alt="">
                 </div>
@@ -185,7 +185,7 @@ export default {
 
     .left-title {
       text-align: center;
-      margin-right: -30px;
+      margin-right: -65px;
       user-select: none;
       img {
         width: 320px;

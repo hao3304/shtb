@@ -36,7 +36,9 @@ import {
   Card,
   Poptip,
   Avatar,
-  Drawer
+  Drawer,
+  Divider,
+  Alert
 } from "iview";
 Vue.component("Button", Button);
 Vue.component("Table", Table);
@@ -73,6 +75,8 @@ Vue.component("Spin", Spin);
 Vue.component("Avatar", Avatar);
 Vue.component("Poptip", Poptip);
 Vue.component("Drawer", Drawer);
+Vue.component("Divider", Divider);
+Vue.component("Alert", Alert);
 
 Vue.prototype.$Loading = LoadingBar;
 Vue.prototype.$Message = Message;

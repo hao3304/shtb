@@ -1,2 +1,2 @@
 import { RESTful } from "./axios";
-export default RESTful("model");
+export default RESTful("project");

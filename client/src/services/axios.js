@@ -71,7 +71,7 @@ export default instance;
 
 export const RESTful = function(target) {
   return {
-    findAll: params => instance.get(`/api/${target}`, {params}),
+    findAll: params => instance.get(`/api/${target}`, { params }),
     add: params => instance.post(`/api/${target}`, params),
     remove: id => instance.delete(`/api/${target}/${id}`),
     update: (id, params) => instance.put(`/api/${target}/${id}`, params),

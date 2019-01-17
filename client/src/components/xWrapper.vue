@@ -268,7 +268,7 @@ export default {
       this.loading = true;
       Service[this.service].findAll(this.query).then(rep => {
         this.data = rep.data;
-        this.total = rep.total || rep.data.length;
+        this.total = rep.count || rep.data.length;
         this.loading = false;
       });
     },

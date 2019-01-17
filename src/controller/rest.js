@@ -1,7 +1,6 @@
 const assert = require("assert");
-const Base = require("./base");
 
-module.exports = class extends Base {
+module.exports = class extends think.Controller {
   static get _REST() {
     return true;
   }
@@ -13,6 +12,7 @@ module.exports = class extends Base {
     assert(think.isFunction(this.model), "this.model must be a function");
     this.modelInstance = this.model(this.resource);
   }
+  __before() {}
   /**
    * get resource
    * @return {String} [resource name]
@@ -37,9 +37,12 @@ module.exports = class extends Base {
       const pk = this.modelInstance.pk;
       data = await this.modelInstance.where({ [pk]: this.id }).find();
       return this.success(data);
+    } else {
+      const page = this.get("page") || 1;
+      const limit = this.get("limit") || 20;
+      data = await this.modelInstance.page(page, limit).countSelect();
+      return this.success(data);
     }
-    data = await this.modelInstance.select();
-    return this.success(data);
   }
   /**
    * put resource

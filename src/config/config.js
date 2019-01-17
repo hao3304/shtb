@@ -6,6 +6,6 @@ module.exports = {
   jwt: {
     secret: "jack-password",
     cookie: "X-AUTH-TOKEN",
-    expire: 3600 // 秒
+    expire: 3600 * 24 // 秒
   }
 };

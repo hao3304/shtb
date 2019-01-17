@@ -4,10 +4,10 @@
             当前用户：{{me.name}}
         </div>
         <div class="f-footer__center">
-            版权所有 @ 2018-2019 <a href="javascript:;">西安居贤格软件有限公司</a>
+            版权所有 @ 2018-2019 <a href="javascript:;">XXXX软件有限公司</a>
         </div>
         <div class="f-footer__right">
-            版本号：v0.9.0
+            版本号：v0.1.0
         </div>
     </div>
 </template>

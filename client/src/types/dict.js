@@ -1,5 +1,6 @@
 export default {
-  id: "数据编码",
+  id: "ID",
+  code: "数据编码",
   name: "名称",
   remark: "备注",
   weight: {

@@ -8,8 +8,7 @@ import Role from "@/views/system/role";
 import Dict from "@/views/system/dict";
 import Unit from "@/views/system/unit";
 
-import Home from '@/views/Home'
-
+import Home from "@/views/Home";
 
 Vue.use(Router);
 
@@ -48,6 +47,21 @@ export const routes = [
     path: "/home",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/system/project",
+    name: "Project",
+    component: () => import("@/views/system/project")
+  },
+  {
+    path: "/system/stage",
+    name: "Stage",
+    component: () => import("@/views/system/stage")
+  },
+  {
+    path: "/user/project",
+    name: "MyProject",
+    component: () => import("@/views/user/MyProject")
   }
 ];
 

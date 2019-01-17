@@ -16,14 +16,11 @@
                     @refresh="onRefresh"
             >
                 <div slot="dialog" slot-scope="{ model }">
-                    <FormItem :label="dictModel.id" prop="id">
-                        <Input v-model="model.id" :placeholder="'请输入'+ dictModel.id"  />
+                    <FormItem :label="dictModel.code" prop="code">
+                        <Input v-model="model.code" :placeholder="'请输入'+ dictModel.code"  />
                     </FormItem>
                     <FormItem :label="dictModel.name" prop="name">
                         <Input v-model="model.name" :placeholder="'请输入'+ dictModel.name"  />
-                    </FormItem>
-                    <FormItem :label="dictModel.weight" >
-                        <InputNumber  style="width: 100%" :min="0" v-model="model.weight" :placeholder="'请输入'+ dictModel.weight"  />
                     </FormItem>
                     <FormItem :label="dictModel.remark" >
                         <Input v-model="model.remark" type="textarea" :placeholder="'请输入'+ dictModel.remark"  />
@@ -58,39 +55,23 @@ export default {
           align: "center"
         },
         {
-          title: dictModel.id,
-          key: "id",
+          title: dictModel.code,
+          key: "code",
           width: 150
         },
         {
           title: dictModel.name,
           key: "name",
-          sortable: "custom",
           width: 200
-        },
-        {
-          title: dictModel.weight,
-          key: "weight",
-          sortable: "custom",
-          width: 100
+        },{
+          title: dictModel.remark,
+          key: "remark",
+          width: 200
         },
         {
           title: "创建时间",
           key: "created",
-          sortable: "custom",
-          width: 200,
-          render: (h, { row }) => {
-            return h("div", {}, Vue.filter("dateFormat")(row.created * 1000));
-          }
-        },
-        {
-          title: "更新时间",
-          key: "changed",
           minWidth: 200,
-          sortable: "custom",
-          render: (h, { row }) => {
-            return h("div", {}, Vue.filter("dateFormat")(row.changed * 1000));
-          }
         },
         {
           title: "操作",
@@ -143,15 +124,9 @@ export default {
       model: newDict,
       rules: {
         name: [{ required: true, message: "必填", trigger: "blur" }],
-        id: [{ required: true, message: "必填", trigger: "blur" }]
+        code: [{ required: true, message: "必填", trigger: "blur" }]
       },
       filter: [
-        {
-          type: "input",
-          name: dictModel.id,
-          field: "id",
-          placeholder: "请输入数据编码查询"
-        },
         {
           type: "input",
           name: dictModel.name,
@@ -165,7 +140,7 @@ export default {
     onRowClick(row) {
       this.pid = null;
       this.$nextTick(() => {
-        this.pid = row.id;
+        this.pid = row.code;
       });
     },
     onAddChild() {

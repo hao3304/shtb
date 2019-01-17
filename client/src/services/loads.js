@@ -1,3 +1,3 @@
 import axios from "./axios";
 
-export const getLoads = params => axios.post(`/loads.json`, params);
+export const getLoads = params => axios.get(`/user/me`);

@@ -17,7 +17,7 @@ module.exports = class extends Base {
       if (think.isEmpty(user)) {
         return this.fail(403, "账号密码错误！请重新填写");
       } else {
-        const token = this.updateAuth(user.name);
+        const token = this.updateAuth({name:user.name,admin:user.admin,id: user.id});
         return this.success(token, "登录成功！");
       }
     }

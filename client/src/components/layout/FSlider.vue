@@ -8,7 +8,7 @@
             <div class="f-slider__collapse">
                 <i class="iconfont icon-menu"></i>
             </div>
-            <SideMenu @itemClick="onSelect" v-if="sliderMenu.length > 0" :data="sliderMenu" :border="false" :collapsed="sliderExpand" ></SideMenu>
+            <SideMenu @itemClick="onSelect" v-if="sliderMenu.length > 0" :data="menus" :border="false" :collapsed="sliderExpand" ></SideMenu>
         </GeminiScrollbar>
     </div>
 </template>
@@ -18,13 +18,12 @@ import { mapState, mapMutations } from "vuex";
 import { routes } from "@/router";
 export default {
   name: "FSlider",
-  data() {
-    return {
-      menus: []
-    };
-  },
   computed: {
-    ...mapState("app", ["sliderMenu", "sliderExpand"])
+    ...mapState("app", ["sliderMenu", "sliderExpand"]),
+    ...mapState('common', ['me']),
+    menus() {
+      return this.sliderMenu.filter(s => s.admin == this.me.admin)
+    }
   },
   methods: {
     ...mapMutations("app", ["add_tab", "set_slider_expand"]),

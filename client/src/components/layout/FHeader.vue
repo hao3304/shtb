@@ -126,6 +126,11 @@ export default {
         text: "我的工单",
         path: "/kf/ticket/1"
       });
+    },
+    onSelect(type) {
+      if(type == 'logout') {
+        this.onLogout();
+      }
     }
   }
 };

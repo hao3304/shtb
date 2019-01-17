@@ -23,22 +23,6 @@ Vue.filter("up-time", time => {
   }
 });
 
-Vue.filter("fm", (v1, v2) => {
-  if (v1 && v2) {
-    if (v1.value == 1 && v2.value == 0) {
-      return "开到位";
-    } else if (v1.value == 0 && v2.value == 1) {
-      return "关到位";
-    } else if (v1.value == 0 && v2.value == 0) {
-      return "开";
-    } else {
-      return "故障";
-    }
-  } else {
-    return "-";
-  }
-});
-
 Vue.filter("sex", value => {
   const target = sex.find(s => s.value == value);
   return target ? target.name : "";

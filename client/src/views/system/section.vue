@@ -1,9 +1,9 @@
 <template>
-    <div class="page-dict-item">
+    <div class="page-section">
         <f-panel>
             <div slot="header" style="text-align: right;padding-right: 5px">
-                <Button @click="onAdd" type="primary" class="f-button" icon="md-add" :disabled="!pid">
-                    字典
+                <Button @click="onAdd" type="primary" class="f-button" icon="md-add" :disabled="!project">
+                    评价内容
                 </Button>
             </div>
             <div slot="body" slot-scope="props">
@@ -28,11 +28,11 @@
         >
             <div class="f-drawer__body">
                 <i-form ref="form" :label-width="75" :rules="rules" :model="model">
-                    <FormItem :label="dictItemModel.name" prop="name">
-                        <Input v-model="model.name" :placeholder="'请输入'+ dictItemModel.name"  />
+                    <FormItem :label="sectionModel.name" prop="name">
+                        <Input v-model="model.name" :placeholder="'请输入'+ sectionModel.name"  />
                     </FormItem>
-                    <FormItem :label="dictItemModel.value" prop="value">
-                        <Input v-model="model.value" :placeholder="'请输入'+ dictItemModel.value"  />
+                    <FormItem :label="sectionModel.value" prop="value">
+                        <InputNumber :min="0" v-model="model.value" style="width: 120px" :placeholder="'请输入'+ sectionModel.value"  /> %
                     </FormItem>
                 </i-form>
             </div>
@@ -47,17 +47,16 @@
 
 <script>
 import types from "@/types";
-import Vue from "vue";
-const { newDictItem, dictItemModel } = types;
-import itemService from "@/services/dictItem";
+const { newSection, sectionModel } = types;
+import sectionService from "@/services/section";
 
 export default {
-  props: ["pid"],
+  props: ["project"],
   name: "dictItem",
   data() {
     return {
-      newDictItem: newDictItem,
-      dictItemModel,
+      newSection: newSection,
+      sectionModel,
       data: [],
       columns: [
         {
@@ -67,21 +66,19 @@ export default {
           align: "center"
         },
         {
-          title: dictItemModel.code,
-          key: "code",
-          width: 100
-        },
-        {
-          title: dictItemModel.name,
+          title: sectionModel.name,
           key: "name",
           width: 120,
           sortable: true
         },
         {
-          title: dictItemModel.value,
+          title: sectionModel.value,
           key: "value",
           width: 120,
-          sortable: true
+          sortable: true,
+          render(h, {row}) {
+            return h('div', row.value + '%')
+          }
         },
 
         {
@@ -135,16 +132,15 @@ export default {
         }
       ],
       rules: {
-        code: [{ required: true, message: "必填", trigger: "blur" }],
         name: [{ required: true, message: "必填", trigger: "blur" }],
-        value: [{ required: true, message: "必填", trigger: "blur" }]
+        value: [{ required: true, type: 'number', message: "必填", trigger: "blur" }]
       },
       parent: {},
       dialog: false,
       title: "新增字典",
       formLoading: false,
       loading: false,
-      model: newDictItem(),
+      model: newSection(),
       action: "",
       query: {
         page: 1,
@@ -155,15 +151,15 @@ export default {
     };
   },
   watch: {
-    pid() {
+    project() {
       this.setParent();
     }
   },
   methods: {
     setParent() {
-      if (this.pid) {
-        this.model.code = this.pid;
-        this.query.code = this.pid;
+      if (this.project) {
+        this.model.project = this.project;
+        this.query.project = this.project;
         this.render();
       } else {
         this.data = [];
@@ -171,7 +167,7 @@ export default {
     },
     render() {
       this.loading = true;
-      itemService.findAll(this.query).then(rep => {
+      sectionService.findAll(this.query).then(rep => {
         this.data = rep.data;
         this.loading = false;
       });
@@ -180,8 +176,8 @@ export default {
       this.dialog = true;
       this.action = "add";
       this.$refs.form.resetFields();
-      this.model = newDictItem();
-      this.model.code = this.pid;
+      this.model = newSection();
+      this.model.project = this.project;
     },
     onCancel() {
       this.dialog = false;
@@ -201,7 +197,7 @@ export default {
     },
     save() {
       this.formLoading = true;
-      itemService.add(this.model).then(() => {
+      sectionService.add(this.model).then(() => {
         this.formLoading = false;
         this.dialog = false;
         this.$Message.success("新增成功！");
@@ -214,7 +210,7 @@ export default {
         content: str ? str : "确定要删除当前选择数据吗？",
         loading: true,
         onOk: () => {
-          itemService
+          sectionService
             .remove(id)
             .then(() => {
               this.$Modal.remove();
@@ -239,7 +235,7 @@ export default {
     },
     update() {
       this.formLoading = true;
-      itemService
+      sectionService
         .update(this.updateId, this.model)
         .then(rep => {
           console.log(rep);
@@ -256,14 +252,14 @@ export default {
       this.query.filters[0].args = [];
       this.parent = {};
       this.data = [];
-      this.model = newDictItem();
+      this.model = newSection();
     }
   }
 };
 </script>
 
 <style lang="less">
-.page-dict-item {
+.page-section {
   height: 100%;
 }
 </style>
