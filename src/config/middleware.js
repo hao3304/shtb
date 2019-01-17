@@ -1,40 +1,56 @@
-const path = require('path');
-const isDev = think.env === 'development';
+const path = require("path");
+const isDev = think.env === "development";
+const jwt = require("koa-jwt");
+const cors = require("koa-cors");
 
 module.exports = [
   {
-    handle: 'meta',
+    handle: "meta",
     options: {
       logRequest: isDev,
       sendResponseTime: isDev
     }
   },
   {
-    handle: 'resource',
+    handle: "resource",
     enable: isDev,
     options: {
-      root: path.join(think.ROOT_PATH, 'www'),
+      root: path.join(think.ROOT_PATH, "www"),
       publicPath: /^\/(static|favicon\.ico)/
     }
   },
   {
-    handle: 'trace',
+    handle: "trace",
     enable: !think.isCli,
     options: {
       debug: isDev
     }
   },
   {
-    handle: 'payload',
+    handle: "payload",
     options: {
       keepExtensions: true,
-      limit: '5mb'
+      limit: "5mb"
     }
   },
   {
-    handle: 'router',
+    handle: "router",
     options: {}
   },
-  'logic',
-  'controller'
+  {
+    handle: cors,
+    options: {}
+  },
+  {
+    handle: jwt,
+    options: {
+      secret: think.config("jwt")["secret"],
+      passthrough: true,
+      getToken(ctx) {
+          return ctx.request.headers['auth-token'];
+      }
+    }
+  },
+  "logic",
+  "controller"
 ];

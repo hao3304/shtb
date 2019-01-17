@@ -1,0 +1,66 @@
+@import "./theme";
+@import "style";
+@import "//at.alicdn.com/t/font_902267_qxyal6lg7qr.css";
+body,
+html {
+  overflow: hidden;
+  height: 100%;
+}
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+
+  &.shrink {
+    .container {
+      .f-slider {
+        width: 40px;
+        .sidemenu .panel-icon {
+          left: 20px;
+        }
+      }
+      .main {
+        margin-left: 40px;
+      }
+    }
+  }
+
+  &.show-monitor {
+    .container {
+      .main {
+        .f-tab {
+          padding-right: 359px;
+        }
+
+        .right-monitor {
+          width: 360px;
+          border-left: 1px solid #ddd;
+        }
+      }
+    }
+  }
+
+  .container {
+    position: absolute;
+    top: @HeaderHeight;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+
+    .main {
+      height: 100%;
+      margin-left: @SliderWidth;
+      background-color: #f2f2f2;
+      display: flex;
+      .f-tab {
+        flex: 1;
+      }
+      .right-monitor {
+        width: 40px;
+      }
+    }
+  }
+}
